@@ -1,3 +1,4 @@
+import { tr } from "date-fns/locale";
 import api from "../utils/axios";
 
 
@@ -32,4 +33,13 @@ export const searchByType = async(type) => {
     }catch(error){
       console.log(error)
     }
+}
+
+export const searchByName = async(name) =>{
+  try{
+     const response = await api.get(`/search-by-name?name=${name}`)
+     return response
+  }catch(err){
+      console.log(err)
+  }
 }

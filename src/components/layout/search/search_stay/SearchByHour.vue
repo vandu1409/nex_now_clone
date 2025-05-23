@@ -13,7 +13,7 @@
 
         </div>
         <div class="absolute">
-            <DatePicker style="position: absolute; left: 0; bottom: 0; opacity: 0; pointer-events: none;" v-model="date"
+            <DatePicker style="position: absolute; left: 0; bottom: 0; opacity: 0; pointer-events: auto;" v-model="date"
                 appendTo="body" inputId="hidden-datepicker-by-hour">
                 <template #footer>
                     <div class="flex flex-col gap-3">

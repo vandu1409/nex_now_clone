@@ -10,7 +10,7 @@
                 <img src="https://nex-now.com/images/common/logo.png" width="50px" height="50px" alt="">
             </div>
         </div>
-        <div class="relative w-full flex justify-center items-center">
+        <div v-if="listBusiness.length" class="relative w-full flex justify-center items-center">
             <swiper effect="coverflow" :grabCursor="false" :centeredSlides="true" :initialSlide="2" :speed="600"
                 :preventClicks="true" :modules="modules" slides-per-view="auto" :spaceBetween="0" :coverflowEffect="{
                     rotate: 0,
@@ -19,20 +19,20 @@
                     modifier: 1,
                     slideShadows: false
                 }" @swiper="onSwiper" @slideChange="onSlideChange" :loopAdditionalSlides="0" :loop="true">
-                <swiper-slide v-for="(item, index) in slides" :key="index">
+                <swiper-slide v-for="item in listBusiness" :key="item.id">
                     <div class="w-[540px] h-[360px] rounded-xl overflow-hidden shadow-lg relative">
-                        <img :src="item.img" :alt="item.title" class="w-full h-full object-cover" />
+                        <img :src="item?.featured_image?.file_path" :alt="item.name" class="w-full h-full object-cover" />
                         <div
                             class="absolute bottom-0 left-0 right-0 text-white p-4 text-center bg-gradient-to-t from-black/60 to-transparent">
-                            <h3 class="text-lg font-semibold mb-1">{{ item.title }}</h3>
+                            <h3 class="text-lg font-semibold mb-1">{{ item.name }}</h3>
                             <div class="flex justify-center gap-1 mb-2">
                                 <i v-for="n in 5" :key="n" class="pi pi-star text-yellow-400"></i>
                             </div>
                             <hr class="border-white/30 mb-2" />
                             <div class="text-sm flex justify-center items-center gap-2">
-                                <span><i class="fas fa-map-marker-alt"></i> {{ item.location }}</span>
+                                <span><i class="fas fa-map-marker-alt"></i> {{ item.address }}</span>
                                 <span>•</span>
-                                <span>{{ item.reviews }} reviews</span>
+                                <span>{{ item.review_count }} reviews</span>
                             </div>
                         </div>
                     </div>
@@ -52,41 +52,10 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
-
+import { searchBusinesses } from '../../../api/search';
 import { nextTick, onMounted, ref } from 'vue';
 
-const slides = ref([
-    {
-        title: 'New Wave Resort Vũng Tàu 1',
-        img: 'https://res.cloudinary.com/nifehub-production/image/upload/public/67e/520/d8e/67e520d8e8452854348283.jpg',
-        location: 'Tỉnh Bà Rịa - Vũng Tàu',
-        reviews: 1,
-    },
-    {
-        title: 'New Wave Resort Vũng Tàu 2',
-        img: 'https://res.cloudinary.com/nifehub-production/image/upload/public/67e/520/d8e/67e520d8e8452854348283.jpg',
-        location: 'Tỉnh Bà Rịa - Vũng Tàu',
-        reviews: 1,
-    },
-    {
-        title: 'Khách sạn The Light 3',
-        img: 'https://res.cloudinary.com/nifehub-production/image/upload/public/67e/3d8/198/67e3d8198af35184396330.png',
-        location: 'TP. Hồ Chí Minh',
-        reviews: 8,
-    },
-    {
-        title: 'Golden Lotus Spa 4',
-        img: 'https://res.cloudinary.com/nifehub-production/image/upload/public/67d/a32/b58/67da32b581ad8645588608.png',
-        location: 'Hà Nội',
-        reviews: 25,
-    },
-    {
-        title: 'Fusion Resort Phú Quốc 5',
-        img: 'https://res.cloudinary.com/nifehub-production/image/upload/public/67d/a32/b58/67da32b581ad8645588608.png',
-        location: 'Phú Quốc',
-        reviews: 18,
-    },
-]);
+const listBusiness = ref([])
 
 let swiperInstance = ref(null);
 
@@ -94,6 +63,12 @@ const onSwiper = (swiper) => {
     swiperInstance = swiper;
     
 };
+
+const loadSlideBusinesses = async() =>{
+    const res = await searchBusinesses({perPage:5})
+    listBusiness.value = res.data.data
+
+}
 
 const onSlideChange = () => {
     //     console.log('Active slide index (clone included):', swiperInstance.activeIndex);
@@ -107,7 +82,13 @@ const goToSlide = (index) => {
     }
 };
 
+
 const modules = [EffectCoverflow, Pagination, Navigation, Scrollbar, A11y];
+
+onMounted(()=>{
+    loadSlideBusinesses()
+})
+
 
 </script>
 

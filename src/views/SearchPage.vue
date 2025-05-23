@@ -32,7 +32,9 @@
             <div class="flex flex-wrap gap-3 items-stretch">
 
                 <div class="flex flex-grow">
-                    <SearchByCity v-model="city_id" />
+                    <SearchByCity v-model:cityId="city_id"
+                    v-model:keySearch="keySearch"
+                    />
                 </div>
 
                 <div class="">
@@ -49,7 +51,8 @@
                     </div>
 
                     <div v-else>
-                        <SearchDate />
+                        <SearchDate  v-model:booking_date="booking_date"
+                                v-model:booking_end_date="booking_end_date"/>
                     </div>
 
                 </div>
@@ -162,7 +165,6 @@ const fetchBusinesses = async () => {
             star: star.value,
             key_search:keySearch.value,
             sort_by:sort.value
-
         }
 
         loadingStore.start()

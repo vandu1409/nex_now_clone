@@ -161,7 +161,6 @@ function hasValidationErrors() {
     return Object.values(errors).some(Boolean);
 }
 
-
 const submitForm = async () => {
     validateEmail()
     validatePassword()
