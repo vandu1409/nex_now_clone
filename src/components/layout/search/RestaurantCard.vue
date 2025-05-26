@@ -1,8 +1,5 @@
 <template>
     <div class="flex flex-col md:flex-row border rounded-lg overflow-hidden shadow-sm px-2 pt-2">
-
-
-        <template v-if="!loadingStore.isLoading">
             <img :src="business?.featured_image?.file_path"
                 class="w-full md:w-[30%] h-[200px] object-cover rounded-lg shadow-sm" />
             <!-- Phần thông tin -->
@@ -45,20 +42,10 @@
                     </button>
                 </div>
             </div>
-        </template>
-
-        <template v-else>
-            <SearchCardSkeleton></SearchCardSkeleton>
-        </template>
     </div>
 
 </template>
 
 <script setup>
-import Skeleton from '../../common/Skeleton.vue';
-import { useLoadingStore } from '../../../store/loading';
-import SearchCardSkeleton from '../../common/SearchCardSkeleton.vue';
-const loadingStore = useLoadingStore()
-
 defineProps(['business'])
 </script>

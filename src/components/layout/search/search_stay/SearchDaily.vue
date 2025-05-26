@@ -21,7 +21,7 @@
 
     <div style="position: absolute; left: 0; bottom: 0; opacity: 0; pointer-events: none;">
         <DatePicker v-model="dateRange" selectionMode="range" :numberOfMonths="2" :manualInput="false" appendTo="body"
-            inputId="hidden-datepicker" inputStyle="display: none">
+            inputId="hidden-datepicker" inputStyle="display: none" ref="datepickerRef">
             <template #footer>
                 <div class="flex justify-center items-center py-2 px-2 mt-2 font-bold border-2">
                     <i class="pi pi-calendar mr-2"></i>
@@ -33,7 +33,7 @@
                     </span>
                 </div>
                 <div class="mt-2 p-2 w-full">
-                    <button class="py-2 px-2 rounded-full bg-primary text-white w-full" @click="datepickerRef?.hide()">
+                    <button class="py-2 px-2 rounded-full bg-primary text-white w-full"  @click="closeDatepicker">
                         Xác nhận
                     </button>
                 </div>
@@ -46,6 +46,7 @@
 import { DatePicker } from 'primevue'
 import { ref, watch } from 'vue'
 
+const datepickerRef = ref(null)
 const today = new Date()
 const sevenDaysLater = new Date()
 sevenDaysLater.setDate(today.getDate() + 7)
@@ -100,6 +101,12 @@ const triggerPicker = async () => {
     if (input) input.click();
 
 };
+
+function closeDatepicker() {
+    if (datepickerRef.value) {
+      datepickerRef.value.overlayVisible = false
+    }
+}
 
 
 </script>

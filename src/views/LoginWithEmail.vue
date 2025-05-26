@@ -81,17 +81,26 @@
                                 </div>
                                 <p v-if="errors.password" class="text-red-500 text-sm mt-1">{{ errors.password }}</p>
                             </div>
+                            <div class="flex justify-between items-center text-sm text-gray-600">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="form-checkbox text-primary focus:ring-primary" />
+                                    Ghi nhớ
+                                </label>
+                                <a href="/forgot-password" class="text-primary hover:underline">
+                                    Quên mật khẩu?
+                                </a>
+                            </div>
 
                             <div class="space-y-3">
                                 <button type="submit"
                                     class="w-full bg-primary hover:bg-purple-800 text-white py-3 rounded-full font-semibold">
                                     Đăng nhập
                                 </button>
+                                <router-link to="/register"
+                                    class="w-full inline-block text-center border-2 border-primary text-primary bg-transparent py-3 rounded-full font-semibold">
+                                    Đăng ký
+                                </router-link>
 
-                                <!-- <button to="/register"
-                                class="w-full bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-full font-semibold">
-                                Đăng ký
-                            </button> -->
                             </div>
                         </form>
 
@@ -102,20 +111,16 @@
         </div>
 
         <div class="relative w-1/2 h-screen hidden md:block">
-            <!-- Hình ảnh nền -->
             <img src="https://nex-now.com/images/login/login-banner.jpg" class="w-full h-full object-cover" />
 
-            <!-- Lớp phủ mờ có "lỗ" tròn ở giữa -->
             <svg class="absolute inset-0 w-full h-full" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <mask id="circle-mask">
-                        <!-- Vùng trắng: phần bị phủ -->
                         <rect width="w-[100%]" height="h-[100%]" fill="white" />
-                        <!-- Vùng đen: phần hiển thị rõ -->
                         <circle cx="256" cy="256" r="180" fill="black" />
                     </mask>
                 </defs>
-                <!-- Hình chữ nhật phủ trắng mờ dùng mask -->
+
                 <rect width="512" height="512" fill="white" fill-opacity="0.6" mask="url(#circle-mask)" />
             </svg>
         </div>

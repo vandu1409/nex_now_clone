@@ -8,7 +8,7 @@ import router from './router';
 import { createPinia } from 'pinia'
 import ToastService from 'primevue/toastservice';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-
+import { viVN } from './locales/vi-VN'
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
@@ -17,7 +17,8 @@ createApp(App)
 .use(PrimeVue, {
     theme: {
         preset: Aura
-    }
+    },
+    locale:viVN
 })
 .use(pinia)
 .use(router)

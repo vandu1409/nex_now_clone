@@ -20,6 +20,7 @@
         <ProductList title="Trải nghiệm không gian và đặt chỗ ngay"></ProductList>
       </div>
       <PromoSection></PromoSection>
+      <PostList></PostList>
 
     </div>
   </div>
@@ -35,4 +36,5 @@ import ProductList from "../components/layout/home/ProductList.vue";
 import SliderImages from "../components/layout/home/SliderImages.vue";
 import PromoSection from "../components/layout/home/PromoSection.vue";
 import PromoCard from "../components/layout/home/PromoCard.vue";
+import PostList from "../components/layout/home/PostList.vue";
 </script>

@@ -26,6 +26,7 @@
 <script setup>
 import { onMounted, ref, computed, watch } from 'vue'
 import { getAllCities, searchByName } from '../../api/search'
+import debounce from 'lodash/debounce'
 
 const locations = ref([])
 const search = ref('')
@@ -39,7 +40,6 @@ const selected = ref(props.modelValue);
 watch(() => selected, (newVal) => {
   selected.value = newVal;
   const found = locations.value.find(item => item.id == newVal);
-  console.log('city' + newVal)
   if (found) {
     search.value = found.name;
   } else {
@@ -105,10 +105,21 @@ const searchBusinessesByName = async () => {
   });
 
   locations.value = list;
+
+  const check = locations?.value?.find(item => item.name == search.value && item.id == selected.value)
+  if (!check) {
+    emit('update:cityId', null);
+  }
 }
 
-watch(search, (newVal) => {
+const debouncedSearch = debounce(() => {
   searchBusinessesByName()
+}, 300)
+
+
+watch(search, (newVal) => {
+ debouncedSearch()
+
   emit('update:keySearch', newVal)
 })
 
@@ -129,7 +140,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-
 ul::-webkit-scrollbar {
   width: 8px;
 }

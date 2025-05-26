@@ -5,10 +5,10 @@
             Tìm trên bản đồ
         </button>
     </div>
-    <div class="rounded-xl shadow-xl px-5 py-5 min-w-[320px] space-y-5 bg-white">
+    <div class="rounded-xl shadow-xl px-5 py-5 min-w-[320px] space-y-5 bg-white ">
         <h1 class="font-semibold text-lg text-gray-900">Giá</h1>
 
-        <div class="px-1">
+        <div class="px-1 custom-slider">
             <Slider v-model="value" range class="w-full" :style="{ '--slider-thumb-bg': '#5F1F76' }" :min="0" :max="9000000" />
             <div class="flex justify-between text-xs text-gray-500 mt-1 px-1">
                 <span>{{ formatCurrency(value[0]) }}</span>
@@ -55,9 +55,12 @@ function formatCurrency(val) {
 }
 </script>
 
-<style>
+<style scoped>
+.custom-slider{
+   --p-slider-range-background: theme('colors.primary') !important;
+}
 .p-slider-handle {
-    background-color: var(--slider-thumb-bg) !important;
+    background-color: theme('colors.primary') !important;
     border: none !important;
 }
 </style>

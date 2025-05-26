@@ -14,7 +14,7 @@
         </div>
         <div class="absolute">
             <DatePicker style="position: absolute; left: 0; bottom: 0; opacity: 0; pointer-events: auto;" v-model="date"
-                appendTo="body" inputId="hidden-datepicker-by-hour">
+                appendTo="body" inputId="hidden-datepicker-by-hour" ref="datepickerRef">
                 <template #footer>
                     <div class="flex flex-col gap-3">
                         <h1 class="text-gray-500">Thời gian check-in</h1>
@@ -87,6 +87,8 @@ const props = ({
 })
 
 const emit = defineEmits(['update:booking_date','update:booking_end_date'])
+const datepickerRef = ref(null)
+
 
 function toMinutes(str) {
   const [h, m] = str.split(':').map(Number);
@@ -111,13 +113,11 @@ const bookingEndDate = computed(() => {
 
 watch(bookingCheckIn,(newVal)=>{
     console.log('Date check in',newVal)
-    console.log('ISO:', newVal.toISOString()); 
     emit('update:booking_date',newVal)
 })
 
 watch(bookingEndDate,(newVal)=>{
     console.log('Date check_out',newVal)
-    console.log('ISO:', newVal.toISOString()); 
     emit('update:booking_end_date',newVal)
 })
 
@@ -135,4 +135,10 @@ const triggerPicker = async () => {
     if (input) input.click();
 
 };
+
+function confirmDate() {
+  if (datepickerRef.value) {
+      datepickerRef.value.overlayVisible = false
+  }
+}
 </script>

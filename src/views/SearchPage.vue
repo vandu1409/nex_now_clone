@@ -192,6 +192,7 @@ watch(
         sort
     ],
     () => {
+        console.log(city_id.value)
         router.replace({
             query: {
                 type: selected.value,
@@ -203,7 +204,7 @@ watch(
                 room_quantity: room_quantity.value,
                 price_from: priceRange.value[0],
                 price_to: priceRange.value[1],
-                star: star.value.join(','),
+                star: star.value?star.value.join(','):null,
                 sort_by:sort.value
             }
         })
